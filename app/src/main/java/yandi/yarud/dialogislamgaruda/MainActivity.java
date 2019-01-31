@@ -1,5 +1,6 @@
 package yandi.yarud.dialogislamgaruda;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +52,14 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         imageView.animate().alpha(0.0f).setDuration(1000).translationY(imageView.getHeight());
                         progressBar.animate().alpha(0.0f).setDuration(800).translationY(imageView.getHeight());
+                    }
+                });
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 });
             }
