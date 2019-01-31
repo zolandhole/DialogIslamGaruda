@@ -1,0 +1,64 @@
+<!--<layer-list xmlns:android="http://schemas.android.com/apk/res/android">-->
+
+    <!--&lt;!&ndash; Define the background properties like color etc &ndash;&gt;-->
+    <!--<item android:id="@android:id/background">-->
+        <!--<shape>-->
+            <!--<gradient-->
+                <!--android:startColor="#fff"-->
+                <!--android:centerColor="#fff"-->
+                <!--android:centerY="1.0"-->
+                <!--android:endColor="#0d1522"-->
+                <!--android:angle="270"-->
+                <!--/>-->
+            <!--<corners android:radius="10dp"/>-->
+        <!--</shape>-->
+    <!--</item>-->
+
+    <!--&lt;!&ndash; Define the progress properties like start color, end color etc &ndash;&gt;-->
+    <!--<item-->
+        <!--android:id="@android:id/progress"-->
+        <!--android:top="1dp"-->
+        <!--android:bottom="1dp"-->
+        <!--android:left="1dp"-->
+        <!--android:right="1dp">-->
+        <!--<clip>-->
+            <!--<shape>-->
+                <!--<gradient-->
+                    <!--android:startColor="#122952"-->
+                    <!--android:centerColor="#122952"-->
+                    <!--android:centerY="1.0"-->
+                    <!--android:endColor="#06101d"-->
+                    <!--android:angle="270"-->
+                    <!--/>-->
+            <!--</shape>-->
+        <!--</clip>-->
+        <!--<scale android:scaleWidth="100%">-->
+            <!--<shape>-->
+                <!--<corners android:radius="8dp"/>-->
+                <!--<solid android:color="@color/colorPrimaryDark"/>-->
+            <!--</shape>-->
+        <!--</scale>-->
+    <!--</item>-->
+<!--</layer-list>-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background">
+        <shape>
+            <corners android:radius="8dp"/>
+            <solid android:color="@color/putihKotor"/>
+        </shape>
+    </item>
+
+    <item android:id="@android:id/progress"
+        android:top="1dp"
+        android:bottom="1dp"
+        android:left="1dp"
+        android:right="1dp">
+
+        <scale android:scaleWidth="100%">
+            <shape>
+                <corners android:radius="8dp"/>
+                <solid android:color="@color/colorPrimaryDark"/>
+            </shape>
+        </scale>
+    </item>
+</layer-list>
