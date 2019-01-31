@@ -50,16 +50,15 @@ public class MainActivity extends AppCompatActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        imageView.animate().alpha(0.0f).setDuration(1000).translationY(imageView.getHeight());
+                        imageView.animate().alpha(0.0f).setDuration(1000).translationY(imageView.getHeight()).withEndAction(new Runnable() {
+                            @Override
+                            public void run() {
+                                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                        });
                         progressBar.animate().alpha(0.0f).setDuration(800).translationY(imageView.getHeight());
-                    }
-                });
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
                     }
                 });
             }
