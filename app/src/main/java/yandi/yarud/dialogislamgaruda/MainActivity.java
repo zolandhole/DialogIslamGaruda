@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 while (mLoading < 100){
                     mLoading++;
-                    android.os.SystemClock.sleep(50);
+                    android.os.SystemClock.sleep(30);
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -53,7 +53,9 @@ public class MainActivity extends AppCompatActivity {
                         imageView.animate().alpha(0.0f).setDuration(1000).translationY(imageView.getHeight()).withEndAction(new Runnable() {
                             @Override
                             public void run() {
+                                String dariHalaman = "splash";
                                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                                intent.putExtra("DARIHALAMAN", dariHalaman);
                                 startActivity(intent);
                                 finish();
                             }
