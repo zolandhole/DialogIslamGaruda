@@ -1,4 +1,4 @@
-package yandi.yarud.dialogislamgaruda;
+package com.example.dialogislamgaruda;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;

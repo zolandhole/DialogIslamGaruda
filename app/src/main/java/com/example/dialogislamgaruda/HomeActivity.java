@@ -1,4 +1,4 @@
-package yandi.yarud.dialogislamgaruda;
+package com.example.dialogislamgaruda;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.view.animation.AnimationUtils;
 
 import java.util.Objects;
 
-import yandi.yarud.dialogislamgaruda.umrah.MainUmrahActivity;
+import com.example.dialogislamgaruda.umrah.MainUmrahActivity;
 
 public class HomeActivity extends AppCompatActivity {
     private CardView buttonUmrah, buttonHaji;

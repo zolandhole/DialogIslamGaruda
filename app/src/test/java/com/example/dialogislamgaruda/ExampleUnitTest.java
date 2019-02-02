@@ -1,4 +1,4 @@
-package yandi.yarud.dialogislamgaruda;
+package com.example.dialogislamgaruda;
 
 import org.junit.Test;
 

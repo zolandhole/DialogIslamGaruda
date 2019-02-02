@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="yandi.yarud.dialogislamgaruda">
+    package="com.example.dialogislamgaruda">
 
     <application
         android:allowBackup="true"
@@ -11,12 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".umrah.MainUmrahActivity"></activity>
+        <activity android:name=".umrah.MainUmrahActivity" />
         <activity
-            android:name=".HomeActivity"
+            android:name="HomeActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name=".MainActivity"
+            android:name="MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

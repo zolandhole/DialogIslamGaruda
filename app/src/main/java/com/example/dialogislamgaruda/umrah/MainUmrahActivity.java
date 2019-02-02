@@ -1,4 +1,4 @@
-package yandi.yarud.dialogislamgaruda.umrah;
+package com.example.dialogislamgaruda.umrah;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-import yandi.yarud.dialogislamgaruda.HomeActivity;
-import yandi.yarud.dialogislamgaruda.R;
+import com.example.dialogislamgaruda.HomeActivity;
+import com.example.dialogislamgaruda.R;
 
 public class MainUmrahActivity extends AppCompatActivity {
 
