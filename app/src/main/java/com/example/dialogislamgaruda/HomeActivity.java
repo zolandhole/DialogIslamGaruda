@@ -3,6 +3,7 @@ package com.example.dialogislamgaruda;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -17,7 +18,7 @@ import com.example.dialogislamgaruda.umrah.MainUmrahActivity;
 
 public class HomeActivity extends AppCompatActivity {
     private CardView buttonUmrah, buttonHaji;
-
+    private ConstraintLayout constraintHajiUmrah;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,14 +26,15 @@ public class HomeActivity extends AppCompatActivity {
 
         buttonUmrah = findViewById(R.id.cardViewUmrah);
         buttonHaji = findViewById(R.id.cardViewHaji);
-
+        constraintHajiUmrah = findViewById(R.id.constraintHajiUmrah);
     }
 
     private void animation() {
-        buttonUmrah.setTranslationX(-4000);
-        buttonHaji.setTranslationX(-4000);
+        buttonUmrah.setTranslationX(-3000);
+        buttonHaji.setTranslationX(-3000);
         buttonUmrah.animate().translationX(0).setDuration(800).setStartDelay(100).start();
         buttonHaji.animate().translationX(0).setDuration(800).setStartDelay(300).start();
+        constraintHajiUmrah.startAnimation(AnimationUtils.loadAnimation(HomeActivity.this, R.anim.fade_in));
     }
 
     private void backAnimationUmrah() {
@@ -40,6 +42,7 @@ public class HomeActivity extends AppCompatActivity {
         buttonUmrah.setTranslationX(3000);
         buttonUmrah.animate().translationX(0).setDuration(800).start();
         buttonHaji.animate().translationX(0).setDuration(800).setStartDelay(100).start();
+        constraintHajiUmrah.startAnimation(AnimationUtils.loadAnimation(HomeActivity.this, R.anim.fade_in));
     }
 
     private void backAnimationHaji(){
@@ -47,6 +50,7 @@ public class HomeActivity extends AppCompatActivity {
         buttonHaji.setTranslationX(3000);
         buttonHaji.animate().translationX(0).setDuration(800).start();
         buttonUmrah.animate().translationX(0).setDuration(800).setStartDelay(100).start();
+        constraintHajiUmrah.startAnimation(AnimationUtils.loadAnimation(HomeActivity.this, R.anim.fade_in));
     }
 
     private void goAnimationUmrah(){
@@ -67,6 +71,7 @@ public class HomeActivity extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(HomeActivity.this, MainUmrahActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fadein_act, R.anim.fadeout_act);
                 finish();
             }
         }, 1000);
@@ -80,6 +85,7 @@ public class HomeActivity extends AppCompatActivity {
             public void run() {
                 Intent intent = new Intent(HomeActivity.this, MainHajiActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fadein_act, R.anim.fadeout_act);
                 finish();
             }
         },1000);
