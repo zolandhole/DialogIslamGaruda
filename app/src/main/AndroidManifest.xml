@@ -11,12 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
+        <activity android:name=".haji.MainHajiActivity"></activity>
         <activity android:name=".umrah.MainUmrahActivity" />
         <activity
-            android:name="HomeActivity"
+            android:name=".HomeActivity"
             android:configChanges="orientation|screenSize" />
         <activity
-            android:name="MainActivity"
+            android:name=".MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
