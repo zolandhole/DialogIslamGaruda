@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="250dp"
+    android:layout_height="250dp">
+
+
+    <FrameLayout
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:alpha="0.5"
+        android:id="@+id/framPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.comix.rounded.RoundedCornerImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/imageViewPhoto"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:layout_gravity="center_horizontal"
+            app:cornerBottomDisable="false"
+            android:scaleType="centerCrop"
+            app:cornerLeftDisable="false"
+            app:cornerRightDisable="false"
+            app:cornerTopDisable="false"
+            app:cornerColor="@color/orangeTulisan"
+            app:cornerRadius="6dp"
+            />
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:layout_width="230dp"
+            android:layout_height="230dp"
+            android:contentDescription="@null"
+            android:src="@drawable/frame" />
+    </FrameLayout>
+
+    <!--<ImageView-->
+        <!--android:id="@+id/imageViewPhoto"-->
+        <!--android:layout_width="200dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginRight="13dp"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:contentDescription="@null"-->
+        <!--android:scaleType="centerCrop"-->
+        <!--android:scaleX="0.8"-->
+        <!--android:scaleY="0.8"-->
+        <!--android:alpha="0.5"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
+</android.support.constraint.ConstraintLayout>
