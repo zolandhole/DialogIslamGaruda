@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 while (mLoading < 100){
                     mLoading++;
-                    android.os.SystemClock.sleep(30);
+                    android.os.SystemClock.sleep(50);
                     handler.post(new Runnable() {
                         @Override
                         public void run() {

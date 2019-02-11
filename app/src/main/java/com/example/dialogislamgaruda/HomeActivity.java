@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -50,6 +51,7 @@ public class HomeActivity extends AppCompatActivity {
     private ArrayList<ModelIklan> modelIklanArrayList;
     private TextView textViewNoInternet;
     private LinearLayoutManager linearLayoutManager;
+    private SwipeRefreshLayout swipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,8 @@ public class HomeActivity extends AppCompatActivity {
         constraintHajiUmrah = findViewById(R.id.constraintHajiUmrah);
         textViewNoInternet = findViewById(R.id.textViewNoInternet);
         recyclerViewIklan = findViewById(R.id.recyclerviewIklan);
+        swipeRefresh = findViewById(R.id.swiperefresh);
+
         progressDialog = new ProgressDialog(this , R.style.MyAlertDialogStyle);
         progressDialog.setMessage("Mohon Menunggu...");
         progressDialog.setCanceledOnTouchOutside(false);
@@ -73,34 +77,40 @@ public class HomeActivity extends AppCompatActivity {
         final SnapHelper snapHelper = new LinearSnapHelper();
         snapHelper.attachToRecyclerView(recyclerViewIklan);
 
+        progressDialog.show();
 
+//        recyclerViewIklan.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+//                super.onScrollStateChanged(recyclerView, newState);
+//                View view = snapHelper.findSnapView(linearLayoutManager);
+//                assert view != null;
+//                int pos = linearLayoutManager.getPosition(view);
+//                RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForAdapterPosition(pos);
+//                assert viewHolder != null;
+//                FrameLayout frameLayout = viewHolder.itemView.findViewById(R.id.framPhoto);
+//                if (newState == RecyclerView.SCROLL_STATE_IDLE){
+//                    frameLayout.animate().alpha(1).scaleX(1).scaleY(1).setDuration(50).start();
+//                } else {
+//                    frameLayout.animate().alpha(0.5f).scaleX(0.5f).scaleY(0.5f).setDuration(50).start();
+//                }
+//            }
+//
+//            @Override
+//            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//            }
+//        });
 
-        recyclerViewIklan.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                View view = snapHelper.findSnapView(linearLayoutManager);
-                assert view != null;
-                int pos = linearLayoutManager.getPosition(view);
-                RecyclerView.ViewHolder viewHolder = recyclerView.findViewHolderForAdapterPosition(pos);
-                assert viewHolder != null;
-                FrameLayout frameLayout = viewHolder.itemView.findViewById(R.id.framPhoto);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE){
-                    frameLayout.animate().alpha(1).scaleX(1).scaleY(1).setDuration(50).start();
-                } else {
-                    frameLayout.animate().alpha(0.5f).scaleX(0.5f).scaleY(0.5f).setDuration(50).start();
-                }
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+            public void onRefresh() {
+                mengambilDataIklan();
             }
         });
     }
 
     private void mengambilDataIklan() {
-        progressDialog.show();
         StringRequest stringRequest = new StringRequest(Request.Method.GET, EndPoint.GETIKLAN,
                 new Response.Listener<String>() {
                     @Override
@@ -122,6 +132,7 @@ public class HomeActivity extends AppCompatActivity {
                                     modelIklanArrayList.add(model);
                                 }
                                 setupRecycler();
+                                swipeRefresh.setRefreshing(false);
                             }
 
                         } catch (JSONException e) {
@@ -133,6 +144,7 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
+                        swipeRefresh.setRefreshing(false);
                         Log.e("YARUD", error.getMessage());
                         Toast.makeText(HomeActivity.this, error.getMessage(), Toast.LENGTH_LONG).show();
                         textViewNoInternet.setVisibility(View.VISIBLE);
@@ -147,16 +159,16 @@ public class HomeActivity extends AppCompatActivity {
         AdapterIklan adapterIklan = new AdapterIklan(this, modelIklanArrayList);
         recyclerViewIklan.setAdapter(adapterIklan);
 
-        final Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                RecyclerView.ViewHolder viewHolderDefault = recyclerViewIklan.findViewHolderForAdapterPosition(0);
-                assert viewHolderDefault != null;
-                FrameLayout frameLayoutDefault = viewHolderDefault.itemView.findViewById(R.id.framPhoto);
-                frameLayoutDefault.animate().alpha(1).scaleX(1).scaleY(1).setDuration(150).start();
-            }
-        },100);
+//        final Handler handler = new Handler();
+//        handler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                RecyclerView.ViewHolder viewHolderDefault = recyclerViewIklan.findViewHolderForAdapterPosition(0);
+//                assert viewHolderDefault != null;
+//                FrameLayout frameLayoutDefault = viewHolderDefault.itemView.findViewById(R.id.framPhoto);
+//                frameLayoutDefault.animate().alpha(1).scaleX(1).scaleY(1).setDuration(150).start();
+//            }
+//        },100);
     }
 
     private void animation() {
@@ -256,4 +268,5 @@ public class HomeActivity extends AppCompatActivity {
         });
         super.onResume();
     }
+
 }

@@ -2,17 +2,18 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="250dp"
-    android:layout_height="250dp">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
 
     <FrameLayout
-        android:scaleX="0.5"
-        android:scaleY="0.5"
-        android:alpha="0.5"
         android:id="@+id/framPhoto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:paddingEnd="7dp"
+        android:paddingStart="7dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,41 +22,23 @@
         <com.comix.rounded.RoundedCornerImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/imageViewPhoto"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
+            android:layout_width="240dp"
+            android:layout_height="160dp"
             android:layout_gravity="center_horizontal"
             app:cornerBottomDisable="false"
             android:scaleType="centerCrop"
             app:cornerLeftDisable="false"
             app:cornerRightDisable="false"
             app:cornerTopDisable="false"
-            app:cornerColor="@color/orangeTulisan"
+            app:cornerColor="@color/putihKotor"
             app:cornerRadius="6dp"
             />
 
         <ImageView
             android:layout_gravity="center_horizontal"
-            android:layout_width="230dp"
-            android:layout_height="230dp"
+            android:layout_width="240dp"
+            android:layout_height="160dp"
             android:contentDescription="@null"
             android:src="@drawable/frame" />
     </FrameLayout>
-
-    <!--<ImageView-->
-        <!--android:id="@+id/imageViewPhoto"-->
-        <!--android:layout_width="200dp"-->
-        <!--android:layout_height="200dp"-->
-        <!--android:layout_marginTop="8dp"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:layout_marginRight="13dp"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:contentDescription="@null"-->
-        <!--android:scaleType="centerCrop"-->
-        <!--android:scaleX="0.8"-->
-        <!--android:scaleY="0.8"-->
-        <!--android:alpha="0.5"-->
-        <!--app:layout_constraintBottom_toBottomOf="parent"-->
-        <!--app:layout_constraintEnd_toEndOf="parent"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent" />-->
 </android.support.constraint.ConstraintLayout>

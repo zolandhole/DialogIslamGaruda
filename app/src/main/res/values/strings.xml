@@ -4,4 +4,5 @@
     <string name="deskripsi_umrah">Umrah adalah suatu amalan yang mulia, di mana tata cara pelaksanaannya mesti dilakukan dengan benar dan sesuai tuntunan Islam</string>
     <string name="panduan_haji">Panduan Haji</string>
     <string name="deskripsi_haji">Tata Cara Ibadah haji lengkap sesuai tuntunan Rasulullah SAW</string>
+    <string name="no_internet">Tidak ada koneksi Internet, klik untuk mengulangi koneksi</string>
 </resources>
