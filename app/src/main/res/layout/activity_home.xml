@@ -4,15 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/putihKotor"
+    android:background="@color/colorPrimaryDark"
     tools:context=".HomeActivity">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintHajiUmrah"
-        android:background="@drawable/upper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="110dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -37,8 +35,12 @@
 
                 <ImageView
                     android:id="@+id/imageView"
-                    android:layout_width="62dp"
-                    android:layout_height="62dp"
+                    android:paddingStart="2dp"
+                    android:paddingLeft="2dp"
+                    android:paddingEnd="0dp"
+                    android:paddingRight="0dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:contentDescription="@null"
                     android:src="@drawable/umrah"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -141,10 +143,9 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintHajiUmrah">
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:id="@+id/textViewinfokajian"
@@ -156,6 +157,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:text="Info Kajian"
+            android:textColor="#FFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -175,16 +177,16 @@
                 android:id="@+id/recyclerviewIklan"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"
+                android:clipToPadding="true"
                 android:paddingEnd="8dp"
+                android:paddingStart="0dp"
+                android:paddingLeft="0dp"
                 android:paddingRight="8dp" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
         <TextView
             android:id="@+id/textViewNoInternet"
-            android:visibility="gone"
             android:layout_width="0dp"
-            android:textAlignment="center"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
@@ -193,6 +195,8 @@
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/no_internet"
+            android:textAlignment="center"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
