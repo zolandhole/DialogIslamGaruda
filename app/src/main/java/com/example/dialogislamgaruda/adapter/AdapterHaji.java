@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.dialogislamgaruda.R;
@@ -29,7 +30,7 @@ public class AdapterHaji extends RecyclerView.Adapter {
     private ArrayList<ModelHaji> dataSet;
     private Context mContext;
     private MediaPlayer mPlayer;
-    private boolean fabStateVolume = false;
+    private Boolean statusLagu = false;
     private Handler mHandler;
 
     @NonNull
@@ -72,44 +73,73 @@ public class AdapterHaji extends RecyclerView.Adapter {
                     ((AudioTypeViewHolder) holder).fab.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            if (fabStateVolume) {
-                                mPlayer.stop();
-                                if (mPlayer.isPlaying()) {
-                                    mPlayer.stop();
-                                }
-                                ((AudioTypeViewHolder) holder).fab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
-                                fabStateVolume = false;
-                            } else {
-                                mPlayer = MediaPlayer.create(mContext, object.data);
-                                mPlayer.setLooping(false);
-                                mPlayer.start();
-                                ((AudioTypeViewHolder) holder).fab.setImageResource(R.drawable.ic_pause_black_24dp);
-                                fabStateVolume = true;
-                                mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                                    @Override
-                                    public void onCompletion(MediaPlayer mp) {
-                                        ((Activity) mContext).runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                ((AudioTypeViewHolder) holder).fab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
-                                            }
-                                        });
-                                    }
-                                });
-                                ((AudioTypeViewHolder) holder).seekBar.setProgress(0);
-                                ((AudioTypeViewHolder) holder).seekBar.setMax(mPlayer.getDuration());
-                                if (mPlayer.isPlaying()){
-                                    mHandler = new Handler();
-                                    ((Activity) mContext).runOnUiThread(new Runnable() {
+                            if (!statusLagu){
+                                if (mPlayer == null){
+                                    mPlayer = MediaPlayer.create(mContext, object.data);
+                                    mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                                         @Override
-                                        public void run() {
-                                            int currentPos = mPlayer.getCurrentPosition()/1000;
-                                            ((AudioTypeViewHolder) holder).seekBar.setProgress(currentPos);
-                                            mHandler.postDelayed(this,1000);
+                                        public void onCompletion(MediaPlayer mp) {
+                                            stopPlayer();
+                                            ((Activity) mContext).runOnUiThread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    ((AudioTypeViewHolder) holder).fab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
+                                                }
+                                            });
                                         }
                                     });
                                 }
+                                mPlayer.start();
+                                ((AudioTypeViewHolder) holder).fab.setImageResource(R.drawable.ic_pause_black_24dp);
+                                statusLagu = true;
+                            } else {
+                                if (mPlayer != null){
+                                    stopPlayer();
+                                    ((Activity) mContext).runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ((AudioTypeViewHolder) holder).fab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
+                                        }
+                                    });
+                                }
+                                ((AudioTypeViewHolder) holder).fab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
                             }
+//                            if (fabStateVolume) {
+//                                mPlayer.stop();
+//                                if (mPlayer.isPlaying()) {
+//                                    mPlayer.seekTo(0);
+//                                }
+//
+//                                fabStateVolume = false;
+//                            } else {
+//                                mPlayer = MediaPlayer.create(mContext, object.data);
+//
+//                                mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//                                    @Override
+//                                    public void onPrepared(MediaPlayer mp) {
+//                                        mPlayer.start();
+//                                    }
+//                                });
+//                                mPlayer.start();
+//
+//                                fabStateVolume = true;
+//                                mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+//                                });
+//                                ((AudioTypeViewHolder) holder).seekBar.setProgress(0);
+//                                ((AudioTypeViewHolder) holder).seekBar.setMax(mPlayer.getDuration());
+//                                if (mPlayer.isPlaying()){
+//                                    mHandler = new Handler();
+//                                    ((Activity) mContext).runOnUiThread(new Runnable() {
+//                                        @Override
+//                                        public void run() {
+//                                            int currentPos = mPlayer.getCurrentPosition()/1000;
+//                                            ((AudioTypeViewHolder) holder).seekBar.setProgress(currentPos);
+//                                            mHandler.postDelayed(this,1000);
+//                                        }
+//                                    });
+//                                }
+//                            }
                         }
                     });
                     break;
@@ -125,6 +155,14 @@ public class AdapterHaji extends RecyclerView.Adapter {
                     break;
             }
         }
+    }
+
+    private void stopPlayer(){
+        if (mPlayer != null){
+            mPlayer.release();
+            mPlayer = null;
+        }
+        statusLagu = false;
     }
 
     @Override
