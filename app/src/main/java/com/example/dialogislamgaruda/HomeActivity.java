@@ -102,7 +102,7 @@ public class HomeActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Log.e("YARUD", error.getMessage());
+//                        Log.e("YARUD", error.getMessage());
                     }});
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
