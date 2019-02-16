@@ -8,6 +8,7 @@
     tools:context=".umrah.MainUmrahActivity">
 
     <android.support.constraint.ConstraintLayout
+        android:background="@color/grey"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -35,7 +36,7 @@
             android:paddingTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@android:color/darker_gray"
+            android:background="@color/grey"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     </android.support.constraint.ConstraintLayout>

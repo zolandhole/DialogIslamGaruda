@@ -1,16 +1,24 @@
 package com.example.dialogislamgaruda.adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.net.Uri;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.MediaController;
+import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.example.dialogislamgaruda.R;
 import com.example.dialogislamgaruda.model.ModelHaji;
@@ -22,6 +30,7 @@ public class AdapterHaji extends RecyclerView.Adapter {
     private Context mContext;
     private MediaPlayer mPlayer;
     private boolean fabStateVolume = false;
+    private Handler mHandler;
 
     @NonNull
     @Override
@@ -37,13 +46,16 @@ public class AdapterHaji extends RecyclerView.Adapter {
             case ModelHaji.AUDIO_TYPE:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.audio_type, parent, false);
                 return new AudioTypeViewHolder(view);
+            case ModelHaji.VIDEO_TYPE:
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.video_type, parent, false);
+                return new VideoTypeViewHolder(view);
         }
         return null;
     }
 
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int listPosition) {
-        ModelHaji object = dataSet.get(listPosition);
+        final ModelHaji object = dataSet.get(listPosition);
         if (object != null) {
             switch (object.type) {
                 case ModelHaji.TEXT_TYPE:
@@ -56,25 +68,60 @@ public class AdapterHaji extends RecyclerView.Adapter {
                     break;
                 case ModelHaji.AUDIO_TYPE:
                     ((AudioTypeViewHolder) holder).txtType.setText(object.text);
+                    ((AudioTypeViewHolder) holder).txtTitle.setText(object.title);
                     ((AudioTypeViewHolder) holder).fab.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
                             if (fabStateVolume) {
+                                mPlayer.stop();
                                 if (mPlayer.isPlaying()) {
                                     mPlayer.stop();
-                                    mPlayer.release();
                                 }
                                 ((AudioTypeViewHolder) holder).fab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
                                 fabStateVolume = false;
                             } else {
-                                mPlayer = MediaPlayer.create(mContext, R.raw.lagu);
+                                mPlayer = MediaPlayer.create(mContext, object.data);
                                 mPlayer.setLooping(false);
                                 mPlayer.start();
                                 ((AudioTypeViewHolder) holder).fab.setImageResource(R.drawable.ic_pause_black_24dp);
                                 fabStateVolume = true;
+                                mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                    @Override
+                                    public void onCompletion(MediaPlayer mp) {
+                                        ((Activity) mContext).runOnUiThread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                ((AudioTypeViewHolder) holder).fab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
+                                            }
+                                        });
+                                    }
+                                });
+                                ((AudioTypeViewHolder) holder).seekBar.setProgress(0);
+                                ((AudioTypeViewHolder) holder).seekBar.setMax(mPlayer.getDuration());
+                                if (mPlayer.isPlaying()){
+                                    mHandler = new Handler();
+                                    ((Activity) mContext).runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            int currentPos = mPlayer.getCurrentPosition()/1000;
+                                            ((AudioTypeViewHolder) holder).seekBar.setProgress(currentPos);
+                                            mHandler.postDelayed(this,1000);
+                                        }
+                                    });
+                                }
                             }
                         }
                     });
+                    break;
+                case ModelHaji.VIDEO_TYPE:
+                    String videoPath = "android.resource://" + ((Activity) mContext).getPackageName() + "/" + object.data;
+                    Uri uri = Uri.parse(videoPath);
+                    ((VideoTypeViewHolder) holder).videoViewHaji.setVideoURI(uri);
+                    MediaController mediaController = new MediaController(mContext);
+                    ((VideoTypeViewHolder) holder).videoViewHaji.setMediaController(mediaController);
+                    mediaController.setAnchorView(((VideoTypeViewHolder) holder).videoViewHaji);
+                    ((VideoTypeViewHolder) holder).txtType.setText(object.text);
+                    ((VideoTypeViewHolder) holder).txtTitle.setText(object.title);
                     break;
             }
         }
@@ -89,6 +136,8 @@ public class AdapterHaji extends RecyclerView.Adapter {
                 return ModelHaji.IMAGE_TYPE;
             case 2:
                 return ModelHaji.AUDIO_TYPE;
+            case 3:
+                return ModelHaji.VIDEO_TYPE;
             default:
                 return -1;
         }
@@ -127,13 +176,26 @@ public class AdapterHaji extends RecyclerView.Adapter {
 
     public static class AudioTypeViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txtType;
+        TextView txtType, txtTitle;
         FloatingActionButton fab;
-
+        SeekBar seekBar;
         AudioTypeViewHolder(View itemView) {
             super(itemView);
             this.txtType = itemView.findViewById(R.id.type);
+            this.txtTitle = itemView.findViewById(R.id.title);
             this.fab = itemView.findViewById(R.id.fab);
+            this.seekBar = itemView.findViewById(R.id.seekBar);
+        }
+    }
+
+    public static class VideoTypeViewHolder extends RecyclerView.ViewHolder {
+        TextView txtType, txtTitle;
+        VideoView videoViewHaji;
+        public VideoTypeViewHolder(@NonNull View itemView) {
+            super(itemView);
+            this.txtType = itemView.findViewById(R.id.type);
+            this.txtTitle = itemView.findViewById(R.id.title);
+            this.videoViewHaji = itemView.findViewById(R.id.videoViewHaji);
         }
     }
 
@@ -141,4 +203,5 @@ public class AdapterHaji extends RecyclerView.Adapter {
         this.dataSet = data;
         this.mContext = context;
     }
+
 }

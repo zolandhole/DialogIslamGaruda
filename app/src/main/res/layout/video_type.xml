@@ -9,7 +9,6 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="wrap_content">
 
         <TextView
@@ -44,17 +43,13 @@
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/type" />
 
-        <ImageView
-            android:id="@+id/background"
+        <VideoView
+            android:id="@+id/videoViewHaji"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:scaleType="centerInside"
-            android:src="@mipmap/ic_launcher"
             card_view:layout_constraintBottom_toBottomOf="parent"
             card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintHorizontal_bias="0.0"
             card_view:layout_constraintStart_toStartOf="parent"
             card_view:layout_constraintTop_toBottomOf="@+id/title" />
 

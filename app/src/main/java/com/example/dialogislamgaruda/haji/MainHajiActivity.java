@@ -1,6 +1,7 @@
 package com.example.dialogislamgaruda.haji;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -29,7 +30,9 @@ public class MainHajiActivity extends AppCompatActivity {
         ArrayList<ModelHaji> list = new ArrayList<>();
 //        list.add(new ModelHaji(ModelHaji.TEXT_TYPE,"PANDUAN HAJI",0));
         list.add(new ModelHaji(ModelHaji.IMAGE_TYPE,"Bersiap siap sebelum berihram","IHRAM",R.drawable.umrah1));
-        list.add(new ModelHaji(ModelHaji.AUDIO_TYPE,"Memakai Pakaian Ihram","IHRAM", R.raw.lagu));
+        list.add(new ModelHaji(ModelHaji.AUDIO_TYPE,"Memakai Pakaian Ihram","IHRAM", R.raw.srigala));
+        list.add(new ModelHaji(ModelHaji.VIDEO_TYPE,"Berihram / Berniat dari miqat","IHRAM", R.raw.umrah));
+        list.add(new ModelHaji(ModelHaji.IMAGE_TYPE,"Hal hal yang dilarang ketika berihram","IHRAM",R.drawable.haji));
 
         AdapterHaji adapter = new AdapterHaji(list,this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
@@ -42,7 +45,7 @@ public class MainHajiActivity extends AppCompatActivity {
 
     private void toolBar() {
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Panduan Umrah");
+        toolbar.setTitle("Panduan Haji");
         setSupportActionBar(toolbar);
         toolbar.setSubtitle("YDIG");
         toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);

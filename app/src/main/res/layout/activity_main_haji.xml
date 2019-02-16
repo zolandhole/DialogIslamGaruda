@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="@color/grey"
     tools:context=".haji.MainHajiActivity">
 
     <android.support.constraint.ConstraintLayout
+        android:background="@color/grey"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -32,11 +32,14 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerviewHaji"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="8dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="?attr/actionBarSize"
+            android:layout_marginRight="8dp"
+            android:background="@color/grey"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:background="@color/grey"
             app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 
     </android.support.constraint.ConstraintLayout>
