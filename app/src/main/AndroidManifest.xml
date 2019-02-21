@@ -3,17 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.dialogislamgaruda">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ydig"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ydig"
-        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="m">
+        <activity android:name=".iklan.IklanActivity"></activity>
         <activity android:name=".haji.MainHajiActivity" />
         <activity android:name=".umrah.MainUmrahActivity" />
         <activity
