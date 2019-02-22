@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 public class MainHajiActivity extends AppCompatActivity {
 
+    AdapterHaji adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +36,7 @@ public class MainHajiActivity extends AppCompatActivity {
         list.add(new ModelHaji(ModelHaji.IMAGE_TYPE,"Hal hal yang dilarang ketika berihram","IHRAM",R.drawable.haji));
         list.add(new ModelHaji(ModelHaji.AUDIO_TYPE,"Hal hal yang diperbolehkan ketika berihram","IHRAM",R.raw.srigala));
 
-        AdapterHaji adapter = new AdapterHaji(list,this);
+        adapter = new AdapterHaji(list,this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, OrientationHelper.VERTICAL, false);
 
         RecyclerView mRecyclerView = (RecyclerView) findViewById(R.id.recyclerviewHaji);
@@ -62,6 +63,7 @@ public class MainHajiActivity extends AppCompatActivity {
     public void onBackPressed() {
         kembaliKeMenuUtama();
         super.onBackPressed();
+        adapter.stopMedia();
     }
 
     private void kembaliKeMenuUtama() {
@@ -70,4 +72,5 @@ public class MainHajiActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
 }

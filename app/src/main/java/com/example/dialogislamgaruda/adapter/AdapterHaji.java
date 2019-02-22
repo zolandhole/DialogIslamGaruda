@@ -242,4 +242,9 @@ public class AdapterHaji extends RecyclerView.Adapter {
         this.mContext = context;
     }
 
+    public void stopMedia(){
+        mPlayer.stop();
+        mPlayer.release();
+    }
+
 }
