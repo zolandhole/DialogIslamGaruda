@@ -15,7 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-
+import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -43,6 +43,7 @@ public class HomeActivity extends AppCompatActivity {
     private RecyclerView recyclerViewIklan;
     private ArrayList<ModelIklan> modelIklanArrayList;
     private LinearLayoutManager linearLayoutManager;
+    private TextView textViewinfokajian;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,17 +54,17 @@ public class HomeActivity extends AppCompatActivity {
         buttonHaji = findViewById(R.id.cardViewHaji);
         constraintHajiUmrah = findViewById(R.id.constraintHajiUmrah);
         recyclerViewIklan = findViewById(R.id.recyclerviewIklan);
+        textViewinfokajian = findViewById(R.id.textViewinfokajian);
 
-        progressDialog = new ProgressDialog(this , R.style.MyAlertDialogStyle);
+        progressDialog = new ProgressDialog(this, R.style.MyAlertDialogStyle);
         progressDialog.setMessage("Mohon Menunggu...");
         progressDialog.setCanceledOnTouchOutside(false);
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false);
+        linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mengambilDataIklan();
-
         progressDialog.show();
     }
 
@@ -85,6 +86,7 @@ public class HomeActivity extends AppCompatActivity {
                                     model.setTampilkansampai(dataobj.getString("tampilkansampai"));
                                     model.setStatusphoto(dataobj.getString("statusphoto"));
                                     model.setImgURL(dataobj.getString("photo"));
+                                    model.setIklanId(dataobj.getString("id"));
                                     modelIklanArrayList.add(model);
                                 }
                                 setupRecycler();
@@ -95,12 +97,14 @@ public class HomeActivity extends AppCompatActivity {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            textViewinfokajian.setVisibility(View.GONE);
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        textViewinfokajian.setVisibility(View.GONE);
                         progressDialog.dismiss();
 //                        Log.e("YARUD", error.getMessage());
                     }});
@@ -177,10 +181,9 @@ public class HomeActivity extends AppCompatActivity {
         },1000);
     }
 
-    @SuppressLint("NewApi")
     @Override
     protected void onResume() {
-        String dariHalaman = Objects.requireNonNull(getIntent().getExtras()).getString("DARIHALAMAN");
+        @SuppressLint({"NewApi", "LocalSuppress"}) String dariHalaman = Objects.requireNonNull(getIntent().getExtras()).getString("DARIHALAMAN");
         assert dariHalaman != null;
         switch (dariHalaman) {
             case "umrah":

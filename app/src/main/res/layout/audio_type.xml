@@ -13,7 +13,6 @@
 
         <TextView
             android:textStyle="bold"
-            android:textSize="20sp"
             android:text="JUDUL"
             android:textColor="@color/colorPrimaryDark"
             android:id="@+id/type"
