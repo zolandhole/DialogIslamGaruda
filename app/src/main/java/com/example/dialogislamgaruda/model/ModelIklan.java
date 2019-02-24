@@ -2,7 +2,15 @@ package com.example.dialogislamgaruda.model;
 
 
 public class ModelIklan {
-    private String photoname, caption, tampilkansampai, statusphoto, imgURL;
+    private String photoname, caption, tampilkansampai, statusphoto, imgURL, iklanId;
+
+    public String getIklanId() {
+        return iklanId;
+    }
+
+    public void setIklanId(String iklanId) {
+        this.iklanId = iklanId;
+    }
 
     public String getPhotoname() {
         return photoname;
