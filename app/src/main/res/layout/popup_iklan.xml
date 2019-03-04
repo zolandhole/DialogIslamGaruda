@@ -30,7 +30,7 @@
                 android:layout_height="300dp"
                 android:background="@drawable/gradient"
                 android:contentDescription="@null"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/ic_notifications_active_black_24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

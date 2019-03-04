@@ -1,11 +1,11 @@
 package com.example.dialogislamgaruda;
 
-import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.StrictMode;
-import android.support.constraint.ConstraintLayout;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -13,11 +13,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import java.util.ArrayList;
-import java.util.Objects;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -37,7 +34,6 @@ import org.json.JSONObject;
 
 public class HomeActivity extends AppCompatActivity {
     private CardView buttonUmrah, buttonHaji;
-    private ConstraintLayout constraintHajiUmrah;
 
     private ProgressDialog progressDialog;
     private RecyclerView recyclerViewIklan;
@@ -52,7 +48,6 @@ public class HomeActivity extends AppCompatActivity {
 
         buttonUmrah = findViewById(R.id.cardViewUmrah);
         buttonHaji = findViewById(R.id.cardViewHaji);
-        constraintHajiUmrah = findViewById(R.id.constraintHajiUmrah);
         recyclerViewIklan = findViewById(R.id.recyclerviewIklan);
         textViewinfokajian = findViewById(R.id.textViewinfokajian);
 
@@ -63,9 +58,33 @@ public class HomeActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
+        collapsingToolbar();
+
         linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mengambilDataIklan();
         progressDialog.show();
+    }
+
+    private void collapsingToolbar() {
+        final CollapsingToolbarLayout collapsingToolbarLayout = findViewById(R.id.colapsing_toolbar);
+        AppBarLayout appBarLayout = findViewById(R.id.app_bar_layout);
+        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.BaseOnOffsetChangedListener() {
+            boolean isShow = true;
+            int scrollRange = -1;
+            @Override
+            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+                if (scrollRange == -1) {
+                    scrollRange = appBarLayout.getTotalScrollRange();
+                }
+                if (scrollRange + verticalOffset == 0) {
+                    collapsingToolbarLayout.setTitle("Dialog Islam Garuda");
+                    isShow = true;
+                } else if(isShow) {
+                    collapsingToolbarLayout.setTitle(" ");
+                    isShow = false;
+                }
+            }
+        });
     }
 
     private void mengambilDataIklan() {
@@ -106,7 +125,6 @@ public class HomeActivity extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         textViewinfokajian.setVisibility(View.GONE);
                         progressDialog.dismiss();
-//                        Log.e("YARUD", error.getMessage());
                     }});
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
@@ -119,97 +137,32 @@ public class HomeActivity extends AppCompatActivity {
         recyclerViewIklan.setAdapter(adapterIklan);
     }
 
-    private void animation() {
-        buttonUmrah.setTranslationX(-3000);
-        buttonHaji.setTranslationX(-3000);
-        buttonUmrah.animate().translationX(0).setDuration(800).setStartDelay(100).start();
-        buttonHaji.animate().translationX(0).setDuration(800).setStartDelay(300).start();
-        constraintHajiUmrah.startAnimation(AnimationUtils.loadAnimation(HomeActivity.this, R.anim.fade_in));
-    }
-
-    private void backAnimationUmrah() {
-        buttonHaji.setTranslationX(3000);
-        buttonUmrah.setTranslationX(3000);
-        buttonUmrah.animate().translationX(0).setDuration(800).start();
-        buttonHaji.animate().translationX(0).setDuration(800).setStartDelay(100).start();
-        constraintHajiUmrah.startAnimation(AnimationUtils.loadAnimation(HomeActivity.this, R.anim.fade_in));
-    }
-
-    private void backAnimationHaji(){
-        buttonUmrah.setTranslationX(3000);
-        buttonHaji.setTranslationX(3000);
-        buttonHaji.animate().translationX(0).setDuration(800).start();
-        buttonUmrah.animate().translationX(0).setDuration(800).setStartDelay(100).start();
-        constraintHajiUmrah.startAnimation(AnimationUtils.loadAnimation(HomeActivity.this, R.anim.fade_in));
-    }
-
-    private void goAnimationUmrah(){
-        buttonHaji.animate().translationX(3000).setDuration(800).start();
-        buttonUmrah.animate().translationX(3000).setDuration(800).setStartDelay(200).start();
-    }
-
-    private void goAnimationHaji(){
-        buttonUmrah.animate().translationX(3000).setDuration(800).start();
-        buttonHaji.animate().translationX(3000).setDuration(800).setStartDelay(200).start();
-    }
-
     private void keUmrah() {
-        goAnimationUmrah();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
                 Intent intent = new Intent(HomeActivity.this, MainUmrahActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fadein_act, R.anim.fadeout_act);
+//                overridePendingTransition(R.anim.fadein_act, R.anim.fadeout_act);
                 finish();
-            }
-        }, 1000);
     }
 
     private void keHaji(){
-        goAnimationHaji();
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
                 Intent intent = new Intent(HomeActivity.this, MainHajiActivity.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.fadein_act, R.anim.fadeout_act);
+//                overridePendingTransition(R.anim.fadein_act, R.anim.fadeout_act);
                 finish();
-            }
-        },1000);
     }
 
     @Override
     protected void onResume() {
-        @SuppressLint({"NewApi", "LocalSuppress"}) String dariHalaman = Objects.requireNonNull(getIntent().getExtras()).getString("DARIHALAMAN");
-        assert dariHalaman != null;
-        switch (dariHalaman) {
-            case "umrah":
-                backAnimationUmrah();
-                break;
-            case "haji":
-                backAnimationHaji();
-                break;
-            case "splash":
-                animation();
-                break;
-        }
 
         buttonUmrah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Animation zoom = AnimationUtils.loadAnimation(HomeActivity.this,R.anim.zoom);
-                buttonUmrah.startAnimation(zoom);
                 keUmrah();
             }
         });
         buttonHaji.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Animation zoom = AnimationUtils.loadAnimation(HomeActivity.this,R.anim.zoom);
-                buttonHaji.startAnimation(zoom);
                 keHaji();
             }
         });

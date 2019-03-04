@@ -7,4 +7,5 @@
     <color name="orangeTulisan">#E9AB00</color>
     <color name="grey">#E9EBEE</color>
     <color name="darkGrey">#4B4F56</color>
+    <color name="kosong">#00000000</color>
 </resources>
