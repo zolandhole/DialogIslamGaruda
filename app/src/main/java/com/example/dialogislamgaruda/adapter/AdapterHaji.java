@@ -4,13 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.net.Uri;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.dialogislamgaruda.R;
@@ -31,7 +27,6 @@ public class AdapterHaji extends RecyclerView.Adapter {
     private Context mContext;
     private MediaPlayer mPlayer;
     private Boolean statusLagu = false;
-    private Handler mHandler;
 
     @NonNull
     @Override
@@ -104,47 +99,11 @@ public class AdapterHaji extends RecyclerView.Adapter {
                                 }
                                 ((AudioTypeViewHolder) holder).fab.setImageResource(R.drawable.ic_play_arrow_white_24dp);
                             }
-//                            if (fabStateVolume) {
-//                                mPlayer.stop();
-//                                if (mPlayer.isPlaying()) {
-//                                    mPlayer.seekTo(0);
-//                                }
-//
-//                                fabStateVolume = false;
-//                            } else {
-//                                mPlayer = MediaPlayer.create(mContext, object.data);
-//
-//                                mPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-//                                    @Override
-//                                    public void onPrepared(MediaPlayer mp) {
-//                                        mPlayer.start();
-//                                    }
-//                                });
-//                                mPlayer.start();
-//
-//                                fabStateVolume = true;
-//                                mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-
-//                                });
-//                                ((AudioTypeViewHolder) holder).seekBar.setProgress(0);
-//                                ((AudioTypeViewHolder) holder).seekBar.setMax(mPlayer.getDuration());
-//                                if (mPlayer.isPlaying()){
-//                                    mHandler = new Handler();
-//                                    ((Activity) mContext).runOnUiThread(new Runnable() {
-//                                        @Override
-//                                        public void run() {
-//                                            int currentPos = mPlayer.getCurrentPosition()/1000;
-//                                            ((AudioTypeViewHolder) holder).seekBar.setProgress(currentPos);
-//                                            mHandler.postDelayed(this,1000);
-//                                        }
-//                                    });
-//                                }
-//                            }
                         }
                     });
                     break;
                 case ModelHaji.VIDEO_TYPE:
-                    String videoPath = "android.resource://" + ((Activity) mContext).getPackageName() + "/" + object.data;
+                    String videoPath = "android.resource://" + mContext.getPackageName() + "/" + object.data;
                     Uri uri = Uri.parse(videoPath);
                     ((VideoTypeViewHolder) holder).videoViewHaji.setVideoURI(uri);
                     MediaController mediaController = new MediaController(mContext);
@@ -229,7 +188,7 @@ public class AdapterHaji extends RecyclerView.Adapter {
     public static class VideoTypeViewHolder extends RecyclerView.ViewHolder {
         TextView txtType, txtTitle;
         VideoView videoViewHaji;
-        public VideoTypeViewHolder(@NonNull View itemView) {
+        VideoTypeViewHolder(@NonNull View itemView) {
             super(itemView);
             this.txtType = itemView.findViewById(R.id.type);
             this.txtTitle = itemView.findViewById(R.id.title);

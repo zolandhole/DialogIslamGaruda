@@ -63,10 +63,10 @@ public class MainHajiActivity extends AppCompatActivity {
     public void onBackPressed() {
         kembaliKeMenuUtama();
         super.onBackPressed();
-        adapter.stopMedia();
     }
 
     private void kembaliKeMenuUtama() {
+        adapter.stopMedia();
         Intent intent = new Intent(MainHajiActivity.this, HomeActivity.class);
         intent.putExtra("DARIHALAMAN","haji");
         startActivity(intent);
