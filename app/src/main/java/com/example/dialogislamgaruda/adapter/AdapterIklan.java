@@ -55,8 +55,8 @@ public class AdapterIklan extends RecyclerView.Adapter<AdapterIklan.MyViewHolder
 
     @NonNull
     @Override
-    public AdapterIklan.MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = layoutInflater.inflate(R.layout.list_iklan, viewGroup, false);
+    public AdapterIklan.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        View view = layoutInflater.inflate(R.layout.list_iklan, parent, false);
         return new MyViewHolder(view);
     }
 
